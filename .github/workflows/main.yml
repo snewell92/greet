@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  deployments: write
+  packages: write
+  contents: write
+
+jobs:
+  test-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Testing Tar Ball
+        run: |
+          echo 'Creating release tarball...' 
+          find ./src -name "*.py" | sed 's/\.\/src\///' | tar -caf release-0.0.1.tar.gz -C src -T -
+          echo 'Inspecting the tarball:'
+          tar -tf release-latest.tar.gz
+      - name: Release
+        run: gh release create v0.0.1 release-latest.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ github.TOKEN }}
