@@ -9,17 +9,17 @@ permissions:
   contents: write
 
 jobs:
-  test-release:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Testing Tar Ball
+      - name: Create
         run: |
           echo 'Creating release tarball...' 
-          find ./src -name "*.py" | sed 's/\.\/src\///' | tar -caf release-latest.tar.gz -C src -T -
+          find ./src -name "*.py" | sed 's/\.\/src\///' | tar -caf greet.tar.gz -C src -T -
           echo 'Inspecting the tarball:'
-          tar -tf release-latest.tar.gz
-      - name: Release
-        run: gh release create v0.0.1 release-latest.tar.gz
+          tar -tf greet.tar.gz
+      - name: Upload
+        run: gh release create v0.0.2 greet.tar.gz
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
