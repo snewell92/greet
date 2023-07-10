@@ -16,7 +16,7 @@ jobs:
       - name: Testing Tar Ball
         run: |
           echo 'Creating release tarball...' 
-          find ./src -name "*.py" | sed 's/\.\/src\///' | tar -caf release-0.0.1.tar.gz -C src -T -
+          find ./src -name "*.py" | sed 's/\.\/src\///' | tar -caf release-latest.tar.gz -C src -T -
           echo 'Inspecting the tarball:'
           tar -tf release-latest.tar.gz
       - name: Release
